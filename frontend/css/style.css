@@ -3,15 +3,13 @@
     padding: 0;
 }
 body {
-    width: calc(100% - 40px); /* Subtrai o dobro do valor do padding para compensar */
-    max-width: calc(100vw - 40px); /* Subtrai o dobro do valor do padding para compensar */
-    padding: 20px; /* Adiciona o padding */
-    /* height: 100vh; */
+    width: calc(100% - 40px); 
+    max-width: calc(100vw - 40px); 
+    padding: 20px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* padding: 20px; */
     overflow-x: hidden;
 }
 
@@ -67,12 +65,10 @@ ul li {
 ul li .card{
     display: flex;
     width: 100%;
-    /* justify-content: space-between; */
     align-items: center;
     gap: 20px;
     padding: 10px;
     border-radius: 12px;
-    /* border: 1px solid slategray; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -96,29 +92,7 @@ ul li .card img{
     border-radius: 12px;
 }
 
-/* @media (max-width: 900px) {
-    ul {
-        padding-left: 10px;
-        padding-right: 10px;
-        align-items: center ;
-        justify-content: center;
-    }
-    ul li {
-        align-items: center;
-        justify-content: center;
-    }
-    ul li .card{
-        display: flex;
-        width: 100%;
-        max-width: 90%;
-        gap: 10px;
-        padding: 10px;
-        border-radius: 12px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    }
-  } */
-
-  /* Estilos para telas menores que 600px de largura */
+  /* Less than 600px width */
 @media screen and (max-width: 600px) {
     .search-input {
       width: 100%;
@@ -133,7 +107,7 @@ ul li .card img{
     }
 }
   
-/* Estilos para telas maiores que 600px e menores que 800px de largura */
+/* Width betwen 600px and 800px */
 @media screen and (min-width: 601px) and (max-width: 800px) {
     .search-input {
       width: 80%;
@@ -148,7 +122,7 @@ ul li .card img{
     }
 }
   
-  /* Estilos para telas maiores que 800px de largura */
+  /* Screens higher than 800px */
 @media screen and (min-width: 801px) {
     form {
       width: 80%;

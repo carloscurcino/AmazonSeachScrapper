@@ -9,10 +9,6 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: 'Hello World!' })
 })
 
-app.get('/teste', (req, res) => {
-    res.status(200).json({ message: 'teste' })
-})
-
 app.get('/scrape', async (req, res) => {
     const { keyword } = req.query;
     if (!keyword) {
