@@ -6,7 +6,11 @@ exports.scrape = (word) => {
     return axios.get(`https://www.amazon.com/s?k=${word}&ref=nb_sb_noss`, {
         headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0' }
     }).then((response) => {
-        const dom = new JSDOM(response.data);
+        const virtualConsole = new jsdom.VirtualConsole();
+        virtualConsole.on("error", () => {
+            // No-op to skip console errors.
+        });
+        const dom = new JSDOM(response.data, { virtualConsole });
 
         const items = [];
 
