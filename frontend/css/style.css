@@ -3,13 +3,16 @@
     padding: 0;
 }
 body {
-    width: 100%;
+    width: calc(100% - 40px); /* Subtrai o dobro do valor do padding para compensar */
+    max-width: calc(100vw - 40px); /* Subtrai o dobro do valor do padding para compensar */
+    padding: 20px; /* Adiciona o padding */
     /* height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    /* padding: 20px; */
+    overflow-x: hidden;
 }
 
 form {
@@ -65,6 +68,7 @@ ul li .card{
     display: flex;
     width: 100%;
     /* justify-content: space-between; */
+    align-items: center;
     gap: 20px;
     padding: 10px;
     border-radius: 12px;
@@ -90,4 +94,75 @@ ul li .card img{
     width: 100px;
     height: 100px;
     border-radius: 12px;
+}
+
+/* @media (max-width: 900px) {
+    ul {
+        padding-left: 10px;
+        padding-right: 10px;
+        align-items: center ;
+        justify-content: center;
+    }
+    ul li {
+        align-items: center;
+        justify-content: center;
+    }
+    ul li .card{
+        display: flex;
+        width: 100%;
+        max-width: 90%;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    }
+  } */
+
+  /* Estilos para telas menores que 600px de largura */
+@media screen and (max-width: 600px) {
+    .search-input {
+      width: 100%;
+    }
+    ul li .card {
+        width: 90%;
+    }
+    ul li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+  
+/* Estilos para telas maiores que 600px e menores que 800px de largura */
+@media screen and (min-width: 601px) and (max-width: 800px) {
+    .search-input {
+      width: 80%;
+    }
+    ul li .card {
+        width: 90%;
+    }
+    ul li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+  
+  /* Estilos para telas maiores que 800px de largura */
+@media screen and (min-width: 801px) {
+    form {
+      width: 80%;
+    }
+    .card-list {
+      max-width: 1000px;
+    }
+    ul li .card {
+        width: 90%;
+    }
+
+    ul li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

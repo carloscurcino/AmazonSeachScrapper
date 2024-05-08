@@ -2,13 +2,10 @@ form = document.getElementById('form')
 search_input = document.getElementById('search')
 search_button = document.getElementById('button')
 
-// search_button.addEventListener('click', () => {
-
-// })
 
 const ul = document.querySelector('.card-list');
 
-// Função para criar um novo elemento li com o conteúdo desejado
+// Create e new List Item
 function createListItem(title, image, link, stars, reviews, price) {
     const li = document.createElement('li');
     li.innerHTML = `
@@ -30,14 +27,14 @@ form.addEventListener('submit', async (event) => {
     const searchTerm = search_input.value;
 
     try {
-        // Realizando a requisição AJAX
+        // Doing the AJAX request
         const response = await fetch(`http://localhost:3000/scrape?keyword=${searchTerm}`);
         const data = await response.json();
 
-        // Limpando a lista ul antes de adicionar novos itens
+        // Cleaning the list before adding more li's
         ul.innerHTML = '';
 
-        // Adicionando os resultados à lista ul
+        // Adding the results to the list
         data.forEach(item => {
             const newListItem = createListItem(item.title, item.image, item.link, item.stars, item.reviews, item.price);
             ul.appendChild(newListItem);
