@@ -3,7 +3,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 exports.scrape = (word) => {
-    axios.get(`https://www.amazon.com/s?k=${word}&ref=nb_sb_noss`, {
+    return axios.get(`https://www.amazon.com/s?k=${word}&ref=nb_sb_noss`, {
         headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0' }
     }).then((response) => {
         const dom = new JSDOM(response.data);
@@ -24,33 +24,39 @@ exports.scrape = (word) => {
 
             const titleElement = product.querySelector('.a-size-medium.a-color-base.a-text-normal');
 
-            const title = titleElement ? titleElement.textContent : '';
+            let title = titleElement ? titleElement.textContent : '';
+
+            if (!title) {
+                const titleElement = product.querySelector('.a-size-base-plus.a-color-base.a-text-normal');
+                title = titleElement ? titleElement.textContent : '';
+            }
 
 
             const imageElement = product.querySelector('img.s-image');
-
             const image = imageElement ? imageElement.getAttribute('src') : '';
 
 
             const linkElement = product.querySelector('a.a-link-normal.a-text-normal');
-
             const link = linkElement ? linkElement.getAttribute('href') : '';
 
 
-            const reviewsElement = product.querySelector('div.a-section.a-spacing-none.a-spacing-top-micro > div.a-row.a-size-small');
-
-            const reviews = reviewsElement ? reviewsElement.lastChild.getAttribute('aria-label') : null;
-
+            const reviewsElement = product.querySelector('.a-size-base.s-underline-text');
+            const reviews = reviewsElement ? reviewsElement.textContent.trim() : null;
 
             const starsElement = product.querySelector('div.a-section.a-spacing-none.a-spacing-top-micro > div > span');
-
             const stars = starsElement ? starsElement.getAttribute('aria-label') : null;
 
 
-            const priceElement = product.querySelector('span.a-price > span.a-offscreen');
+            let priceElement = product.querySelector('span.a-price > span.a-offscreen');
+            let price = priceElement ? priceElement.textContent : '';
 
-            const price = priceElement ? priceElement.textContent : '';
-
+            if (!price) {
+                priceElement = product.querySelector('.a-row.a-size-base.a-color-secondary > span.a-color-base');
+                price = priceElement ? priceElement.textContent : '';
+            }
+            if (!price) {
+                price = 'No price info';
+            }
 
             let element = {
                 title,
@@ -61,21 +67,24 @@ exports.scrape = (word) => {
 
             if (reviews) {
                 element.reviews = reviews
+            } else {
+                element.reviews = 'No reviews info'
             }
 
             if (stars) {
                 element.stars = stars
+            } else {
+                element.stars = 'No stars info'
             }
 
-            // Verifica se pelo menos um atributo não está vazio antes de adicionar o item
             if (title || image || link) {
                 items.push(element);
             }
         });
 
-        console.log(items)
+        // console.log(items)
 
-        return response.data
+        return items
     }).catch((error) => {
         console.error('Error:', error);
         throw error; // rethrowing error to be handled by caller
